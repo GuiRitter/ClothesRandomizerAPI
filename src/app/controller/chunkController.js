@@ -26,26 +26,26 @@ export const getChunk = async (req, res) => {
 			(previousChunk, currentRow) => {
 				let object;
 				let table;
-				if (!currentRow['l_id']) {
+				if (currentRow['l_id']) {
 					object = {
 						id: currentRow['l_id'],
 						name: currentRow['l_name'],
 					};
 					table = 'local';
-				} else if (!currentRow['p_o_c_t_id']) {
+				} else if (currentRow['p_o_c_t_id']) {
 					object = {
 						id: currentRow['p_o_c_t_id'],
 						name: currentRow['p_o_c_t_name'],
 					};
 					table = 'pieceOfClothingType';
-				} else if (!currentRow['p_o_c_id']) {
+				} else if (currentRow['p_o_c_id']) {
 					object = {
 						id: currentRow['p_o_c_id'],
 						type: currentRow['p_o_c_type'],
 						name: currentRow['p_o_c_name'],
 					};
 					table = 'pieceOfClothing';
-				} else if (!currentRow['t_u_local']) {
+				} else if (currentRow['t_u_local']) {
 					object = {
 						local: currentRow['t_u_local'],
 						type: currentRow['t_u_piece_of_clothing_type'],
