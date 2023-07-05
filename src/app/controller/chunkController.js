@@ -25,7 +25,6 @@ export const getChunk = async (req, res) => {
 			(previousChunk, currentRow) => {
 				let object;
 				let table;
-				let list;
 				if ((!currentRow['l_id']) || (currentRow['l_id'] === 'null')) {
 					object = {
 						id: currentRow['l_id'],
@@ -52,7 +51,10 @@ export const getChunk = async (req, res) => {
 					};
 					table = 'typeUse';
 				}
-				previousChunk[table] = previousChunk[table].concat(object);
+				return ({
+					...previousChunk,
+					[table]: previousChunk[table].concat(object)
+				});
 			},
 			chunkTableList.reduce((previousObject, currentItem) => ({ ...previousObject, [currentItem.modelName]: [] }), {})
 		);
