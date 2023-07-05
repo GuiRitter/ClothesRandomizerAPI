@@ -3,6 +3,7 @@ import express from 'express';
 import 'babel-polyfill';
 import cors from 'cors';
 
+import chunkRoute from './app/route/chunkRoute';
 import localRoute from './app/route/localRoute';
 import typeRoute from './app/route/typeRoute';
 import useRoute from './app/route/useRoute';
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.use('/clothes_randomizer/api/chunk', chunkRoute);
 app.use('/clothes_randomizer/api/local', localRoute);
 app.use('/clothes_randomizer/api/type', typeRoute);
 app.use('/clothes_randomizer/api/use', useRoute);
