@@ -11,7 +11,7 @@ import { getLog } from '../util/log';
 const log = getLog('useController');
 
 export const decrement = async (req, res) => {
-	let { local, pieceOfClothing } = req.query;
+	let { local, pieceOfClothing } = req.body;
 	const query = 'CALL decrement_use($1, $2);';
 	log('decrement', { local, pieceOfClothing });
 	try {
@@ -35,7 +35,7 @@ export const getUse = async (req, res) => {
 };
 
 export const increment = async (req, res) => {
-	let { local, pieceOfClothing } = req.query;
+	let { local, pieceOfClothing } = req.body;
 	const query = 'CALL increment_use($1, $2);';
 	log('increment', { local, pieceOfClothing });
 	try {
