@@ -83,7 +83,7 @@ CREATE PROCEDURE increment_use(
 LANGUAGE plpgsql
 AS $$
 BEGIN
-	CALL update_use(piece_of_clothing_selected, local_selected, 1, last_date_time_new);
+	CALL update_use(piece_of_clothing_selected, local_selected, last_date_time_new, 1);
 END; $$;
 
 -- DROP PROCEDURE decrement_use;
@@ -95,5 +95,5 @@ CREATE PROCEDURE decrement_use(
 LANGUAGE plpgsql
 AS $$
 BEGIN
-	CALL update_use(piece_of_clothing_selected, local_selected, -1, last_date_time_new);
+	CALL update_use(piece_of_clothing_selected, local_selected, last_date_time_new, -1);
 END; $$;

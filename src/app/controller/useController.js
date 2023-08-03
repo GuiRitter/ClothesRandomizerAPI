@@ -11,11 +11,11 @@ import { getLog } from '../util/log';
 const log = getLog('useController');
 
 export const decrement = async (req, res) => {
-	let { local, pieceOfClothing } = req.body;
-	const query = 'CALL decrement_use($1, $2);';
-	log('decrement', { local, pieceOfClothing });
+	let { local, pieceOfClothing, newLastDateTime } = req.body;
+	const query = 'CALL decrement_use($1, $2, $3);';
+	log('decrement', { local, pieceOfClothing, newLastDateTime });
 	try {
-		const { rows } = await dbQuery.query(query, [pieceOfClothing, local]);
+		const { rows } = await dbQuery.query(query, [pieceOfClothing, local, newLastDateTime]);
 		return res.status(status.success).send(rows);
 	} catch (error) {
 		return buildError(log, 'decrement', error, res);
@@ -35,11 +35,11 @@ export const getUse = async (req, res) => {
 };
 
 export const increment = async (req, res) => {
-	let { local, pieceOfClothing } = req.body;
-	const query = 'CALL increment_use($1, $2);';
-	log('increment', { local, pieceOfClothing });
+	let { local, pieceOfClothing, newLastDateTime } = req.body;
+	const query = 'CALL increment_use($1, $2, $3);';
+	log('increment', { local, pieceOfClothing, newLastDateTime });
 	try {
-		const { rows } = await dbQuery.query(query, [pieceOfClothing, local]);
+		const { rows } = await dbQuery.query(query, [pieceOfClothing, local, newLastDateTime]);
 		return res.status(status.success).send(rows);
 	} catch (error) {
 		return buildError(log, 'increment', error, res);
