@@ -2,7 +2,7 @@ import dbQuery from '../db/dev/dbQuery';
 
 import {
 	buildError,
-	errorMessage,
+	// errorMessage,
 	status
 } from '../helper/status';
 
