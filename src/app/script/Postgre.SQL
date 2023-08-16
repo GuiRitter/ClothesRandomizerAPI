@@ -112,3 +112,15 @@ AS $$
 BEGIN
 	CALL update_use(piece_of_clothing_selected, local_selected, last_date_time_new, -1);
 END; $$;
+
+-- DROP PROCEDURE delete_cascade_local;
+CREATE PROCEDURE delete_cascade_local(
+	local_selected uuid
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+	DELETE FROM type_use WHERE local = local_selected;
+	DELETE FROM use WHERE local = local_selected;
+	DELETE FROM local WHERE id = local_selected;
+END; $$;
