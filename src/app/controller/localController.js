@@ -24,11 +24,11 @@ export const getLocal = async (req, res) => {
 export const deleteCascadeLocal = async (req, res) => {
 	let { id } = req.body;
 	const query = 'CALL delete_cascade_local($1);';
-	log('getLocal');
+	log('deleteCascadeLocal');
 	try {
 		const { rows } = await dbQuery.query(query, [id]);
 		return res.status(status.success).send(rows);
 	} catch (error) {
-		return buildError(log, 'getLocal', error, res);
+		return buildError(log, 'deleteCascadeLocal', error, res);
 	}
 };

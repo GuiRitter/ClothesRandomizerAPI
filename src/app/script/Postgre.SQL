@@ -135,3 +135,16 @@ BEGIN
 	DELETE FROM use WHERE piece_of_clothing = piece_of_clothing_selected;
 	DELETE FROM piece_of_clothing WHERE id = piece_of_clothing_selected;
 END; $$;
+
+-- DROP PROCEDURE delete_cascade_piece_of_clothing_type;
+CREATE PROCEDURE delete_cascade_piece_of_clothing_type(
+	piece_of_clothing_type_selected uuid
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+	DELETE FROM type_use WHERE piece_of_clothing_type = piece_of_clothing_type_selected;
+	DELETE FROM use AS u USING piece_of_clothing AS p_o_c WHERE u.piece_of_clothing = p_o_c.id AND p_o_c.type = piece_of_clothing_type_selected;
+	DELETE FROM piece_of_clothing where type = piece_of_clothing_type_selected;
+	DELETE FROM piece_of_clothing_type WHERE id = piece_of_clothing_type_selected;
+END; $$;

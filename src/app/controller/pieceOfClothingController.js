@@ -29,6 +29,6 @@ export const deleteCascadePieceOfClothing = async (req, res) => {
 		const { rows } = await dbQuery.query(query, [id]);
 		return res.status(status.success).send(rows);
 	} catch (error) {
-		return buildError(log, 'getPieceOfClothing', error, res);
+		return buildError(log, 'deleteCascadePieceOfClothing', error, res);
 	}
 };

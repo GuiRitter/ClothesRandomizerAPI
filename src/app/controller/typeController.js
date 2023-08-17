@@ -20,3 +20,15 @@ export const getType = async (req, res) => {
 		return buildError(log, 'getType', error, res);
 	}
 };
+
+export const deleteCascadePieceOfClothingType = async (req, res) => {
+	let { id } = req.body;
+	const query = 'CALL delete_cascade_piece_of_clothing_type($1);';
+	log('deleteCascadePieceOfClothingType', { id });
+	try {
+		const { rows } = await dbQuery.query(query, [id]);
+		return res.status(status.success).send(rows);
+	} catch (error) {
+		return buildError(log, 'deleteCascadePieceOfClothingType', error, res);
+	}
+};
