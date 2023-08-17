@@ -11,7 +11,7 @@ import { getLog } from '../util/log';
 const log = getLog('typeController');
 
 export const getType = async (req, res) => {
-	const query = 'SELECT id, name FROM piece_of_clothing_type ORDER BY name;';
+	const query = 'SELECT p_o_c_t.id, p_o_c_t.name, (SELECT COUNT(*) FROM piece_of_clothing p_o_c WHERE p_o_c.type = p_o_c_t.id) > 0 AS has_dependency FROM piece_of_clothing_type p_o_c_t ORDER BY name;';
 	log('getType');
 	try {
 		const { rows } = await dbQuery.query(query);
