@@ -23,7 +23,7 @@ export const getLocal = async (req, res) => {
 
 export const deleteCascadeLocal = async (req, res) => {
 	let { id } = req.body;
-	const query = 'DELETE FROM local WHERE id = $1 RETURNING *;';
+	const query = 'CALL delete_cascade_local($1);';
 	log('getLocal');
 	try {
 		const { rows } = await dbQuery.query(query, [id]);
