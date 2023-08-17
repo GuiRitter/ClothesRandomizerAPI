@@ -124,3 +124,14 @@ BEGIN
 	DELETE FROM use WHERE local = local_selected;
 	DELETE FROM local WHERE id = local_selected;
 END; $$;
+
+-- DROP PROCEDURE delete_cascade_piece_of_clothing;
+CREATE PROCEDURE delete_cascade_piece_of_clothing(
+	piece_of_clothing_selected uuid
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+	DELETE FROM use WHERE piece_of_clothing = piece_of_clothing_selected;
+	DELETE FROM piece_of_clothing WHERE id = piece_of_clothing_selected;
+END; $$;
