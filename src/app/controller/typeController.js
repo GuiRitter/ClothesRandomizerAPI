@@ -10,6 +10,18 @@ import { getLog } from '../util/log';
 
 const log = getLog('typeController');
 
+export const createType = async (req, res) => {
+	const query = 'INSERT INTO piece_of_clothing_type (name) VALUES ($1) RETURNING *';
+	let { name } = req.body;
+	log('createType', { name });
+	try {
+		const { rows } = await dbQuery.query(query, [name]);
+		return res.status(status.success).send(rows);
+	} catch (error) {
+		return buildError(log, 'createType', error, res);
+	}
+};
+
 export const getType = async (req, res) => {
 	const query = 'SELECT p_o_c_t.id, p_o_c_t.name, (SELECT COUNT(*) FROM piece_of_clothing p_o_c WHERE p_o_c.type = p_o_c_t.id) > 0 AS has_dependency FROM piece_of_clothing_type p_o_c_t ORDER BY name;';
 	log('getType');
