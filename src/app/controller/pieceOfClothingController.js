@@ -23,7 +23,7 @@ export const createPieceOfClothing = async (req, res) => {
 };
 
 export const getPieceOfClothing = async (req, res) => {
-	const query = 'SELECT p_o_c.id, p_o_c.type, p_o_c_t.name as piece_of_clothing_type, p_o_c.name, (SELECT COUNT(*) FROM use u WHERE u.piece_of_clothing = p_o_c.id) > 0 AS has_dependency FROM piece_of_clothing p_o_c JOIN piece_of_clothing_type p_o_c_t ON p_o_c.type = p_o_c_t.id ORDER BY p_o_c_t.name, p_o_c.name;';
+	const query = 'SELECT p_o_c.id, p_o_c.type, p_o_c_t.name as type__display, p_o_c.name, (SELECT COUNT(*) FROM use u WHERE u.piece_of_clothing = p_o_c.id) > 0 AS has_dependency FROM piece_of_clothing p_o_c JOIN piece_of_clothing_type p_o_c_t ON p_o_c.type = p_o_c_t.id ORDER BY p_o_c_t.name, p_o_c.name;';
 	log('getPieceOfClothing');
 	try {
 		const { rows } = await dbQuery.query(query);
