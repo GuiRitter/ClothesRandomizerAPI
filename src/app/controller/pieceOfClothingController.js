@@ -44,3 +44,36 @@ export const deleteCascadePieceOfClothing = async (req, res) => {
 		return buildError(log, 'deleteCascadePieceOfClothing', error, res);
 	}
 };
+
+export const updatePieceOfClothing = async (req, res) => {
+	const { id } = req.body;
+
+	const { columnNameList, columnValueList } = Object.entries(req.body).reduce((previousObject, currentEntry) => {
+		if (currentEntry[0] === 'id') {
+			return previousObject;
+		}
+		return {
+			columnNameList: previousObject.columnNameList.concat(currentEntry[0]),
+			columnValueList: previousObject.columnValueList.concat(currentEntry[1]),
+		};
+	}, { columnNameList: [], columnValueList: [] });
+
+	log('updatePieceOfClothing', { columnNameList, columnValueList });
+
+	if (columnNameList.length < 1) {
+		return buildError(log, 'No changes to update.', error, res);
+	}
+
+	const columnList = columnNameList
+		.map((mColumnName, index) => `${mColumnName} = $${index + 2}`)
+		.join(', ');
+
+	const query = `UPDATE piece_of_clothing SET ${columnList} WHERE id = $1 RETURNING *;`;
+	try {
+		const { rows } = await dbQuery.query(query, [id, ...columnValueList]);
+		return res.status(status.success).send(rows);
+	} catch (error) {
+		return buildError(log, 'updatePieceOfClothing', error, res);
+	}
+};
+

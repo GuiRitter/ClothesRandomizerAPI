@@ -11,7 +11,7 @@ import { getLog } from '../util/log';
 const log = getLog('localController');
 
 export const createLocal = async (req, res) => {
-	const query = 'INSERT INTO local (name) VALUES ($1) RETURNING *';
+	const query = 'INSERT INTO local (name) VALUES ($1) RETURNING *;';
 	let { name } = req.body;
 	log('createLocal', { name });
 	try {
@@ -42,5 +42,17 @@ export const deleteCascadeLocal = async (req, res) => {
 		return res.status(status.success).send(rows);
 	} catch (error) {
 		return buildError(log, 'deleteCascadeLocal', error, res);
+	}
+};
+
+export const updateLocal = async (req, res) => {
+	const query = 'UPDATE local SET name = $2 WHERE id = $1 RETURNING *;';
+	let { id, name } = req.body;
+	log('updateLocal', { name });
+	try {
+		const { rows } = await dbQuery.query(query, [id, name]);
+		return res.status(status.success).send(rows);
+	} catch (error) {
+		return buildError(log, 'updateLocal', error, res);
 	}
 };

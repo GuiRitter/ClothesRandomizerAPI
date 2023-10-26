@@ -44,3 +44,15 @@ export const deleteCascadePieceOfClothingType = async (req, res) => {
 		return buildError(log, 'deleteCascadePieceOfClothingType', error, res);
 	}
 };
+
+export const updateType = async (req, res) => {
+	const query = 'UPDATE piece_of_clothing_type SET name = $2 WHERE id = $1 RETURNING *;';
+	let { id, name } = req.body;
+	log('updateType', { name });
+	try {
+		const { rows } = await dbQuery.query(query, [id, name]);
+		return res.status(status.success).send(rows);
+	} catch (error) {
+		return buildError(log, 'updateType', error, res);
+	}
+};
