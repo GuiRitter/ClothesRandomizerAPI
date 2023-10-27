@@ -7,6 +7,7 @@ import chunkRoute from './app/route/chunkRoute';
 import localRoute from './app/route/localRoute';
 import pieceOfClothingRoute from './app/route/pieceOfClothingRoute';
 import typeRoute from './app/route/typeRoute';
+import typeUseRoute from './app/route/typeUseRoute';
 import useRoute from './app/route/useRoute';
 import userRoute from './app/route/userRoute';
 
@@ -22,6 +23,7 @@ app.use('/clothes_randomizer/api/chunk', chunkRoute);
 app.use('/clothes_randomizer/api/local', localRoute);
 app.use('/clothes_randomizer/api/piece_of_clothing', pieceOfClothingRoute);
 app.use('/clothes_randomizer/api/type', typeRoute);
+app.use('/clothes_randomizer/api/type_use', typeUseRoute);
 app.use('/clothes_randomizer/api/use', useRoute);
 app.use('/clothes_randomizer/api/user', userRoute);
 
