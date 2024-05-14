@@ -53,12 +53,12 @@ BEGIN
 	UPDATE use u SET counter = u.counter - smallest_counter FROM piece_of_clothing p_o_c WHERE u.piece_of_clothing = p_o_c.id AND p_o_c.type = piece_of_clothing_type_selected AND u.local = local_selected;
 END; $$;
 
--- DROP TRIGGER use_date_time_format ON bet; DROP FUNCTION test_use_date_time_format;
+-- DROP TRIGGER use_date_time_format ON use; DROP FUNCTION test_use_date_time_format;
 CREATE FUNCTION test_use_date_time_format() RETURNS trigger AS $$
 DECLARE
   matches boolean;
 BEGIN
-  select new.last_date_time similar to '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[.][0-9]{3}(Z|((\+|-)([0-9]{2}:[0-9]{2})))' into matches;
+  select new.last_date_time similar to '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[.][0-9]{3,6}(Z|((\+|-)([0-9]{2}:[0-9]{2})))' into matches;
   IF matches THEN
     RETURN NEW;
   END IF;
